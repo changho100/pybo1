@@ -106,26 +106,22 @@
                 <thead>
                     <tr>
                         <th>번호</th>
-                        <th>이름</th>
-                        <th>설명</th>
+                        <th>제목</th>
+                        <th>작성일</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for question in question_list %}
                     <tr>
-                        <td>1</td>
-                        <td>홍길동</td>
-                        <td>테스트 사용자</td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ question.subject }}</td>
+                        <td>{{ question.create_date }}</td>
                     </tr>
+                    {% empty %}
                     <tr>
-                        <td>2</td>
-                        <td>김철수</td>
-                        <td>예시 데이터</td>
+                        <td colspan="3">데이터가 없습니다.</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>이영희</td>
-                        <td>샘플 정보</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
