@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>질문 삭제 확인</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: auto; text-align: center; }
+        .btn { display: inline-block; padding: 8px 15px; color: white; text-decoration: none; border-radius: 4px; margin: 0 10px; }
+        .btn-danger { background: #d9534f; border: none; font-size: 1em; cursor: pointer; }
+        .btn-secondary { background: #777; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>정말로 삭제하시겠습니까?</h1>
+        <p>"{{ question.subject }}" 질문을 삭제합니다.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">삭제</button>
+            <a href="{% url 'question_detail' question.id %}" class="btn btn-secondary">취소</a>
+        </form>
+    </div>
+</body>
+</html>

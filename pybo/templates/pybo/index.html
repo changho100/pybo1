@@ -114,7 +114,9 @@
                     {% for question in question_list %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ question.subject }}</td>
+                        <td>
+                            <a href="{% url 'question_detail' question.id %}">{{ question.subject }}</a>
+                        </td>
                         <td>{{ question.create_date }}</td>
                     </tr>
                     {% empty %}

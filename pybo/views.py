@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect
-from .models import Question
+# pybo/views.py
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Question, Answer
 
 # Create your views here.
 def index(request): 
@@ -19,3 +21,26 @@ def question_create(request):
             Question.objects.create(subject=subject, content=content)
             return redirect('index')
     return render(request, 'pybo/question_form.html')
+
+def question_detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'pybo/question_detail.html', {'question': question})
+
+def question_edit(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == "POST":
+        subject = request.POST.get('subject')
+        content = request.POST.get('content')
+        if subject and content:
+            question.subject = subject
+            question.content = content
+            question.save()
+            return redirect('question_detail', question_id=question.id)
+    return render(request, 'pybo/question_form.html', {'question': question})
+
+def question_delete(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == "POST":
+        question.delete()
+        return redirect('index')
+    return render(request, 'pybo/question_delete_confirm.html', {'question': question})
